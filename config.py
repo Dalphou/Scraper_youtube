@@ -1,0 +1,7 @@
+MOT_CLE = "minecraft"
+
+HEADLESS = False
+
+TEMPS_CHARGEMENT = 5000
+
+MAX_RESULTATS = 3
