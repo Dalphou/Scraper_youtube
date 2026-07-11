@@ -10,6 +10,8 @@ from parsers.youtube_parsers import parser_chaine
 
 from extractors.youtube_links import ouvrir_panneau_liens
 
+from platforms.youtube_scroll import charger_plus_de_resultats
+
 
 
 def scraper_page_chaine(page, youtube_channel):
@@ -64,6 +66,11 @@ def rechercher_youtube(mot_cle):
 
         print(search_page.url)
         print(search_page.title())
+
+        charger_plus_de_resultats(
+            search_page,
+            MAX_RESULTATS
+        )
 
         chaines = search_page.locator("ytd-channel-renderer")
 
