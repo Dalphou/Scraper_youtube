@@ -1,11 +1,12 @@
-from utils import accepter_cookies_youtube, convertir_nombre_abonnes
+from utils import accepter_cookies_youtube
+from filters.youtube_filters import conserver_chaine
 
 from parsers.youtube_channel_parser import parser_page_chaine
 
 from playwright.sync_api import sync_playwright
 
 from models import YoutubeChannel
-from config import HEADLESS, TEMPS_CHARGEMENT, MAX_RESULTATS, MIN_ABONNES
+from config import HEADLESS, TEMPS_CHARGEMENT, MAX_RESULTATS
 from parsers.youtube_parsers import parser_chaine
 
 from extractors.youtube_links import ouvrir_panneau_liens
@@ -136,19 +137,8 @@ def rechercher_youtube(mot_cle):
 
             scraper_page_chaine(channel_page, youtube_channel)
 
-            nb_abonnes = convertir_nombre_abonnes(
-                youtube_channel.youtube_subscribers
-            )
-
-            if nb_abonnes >= MIN_ABONNES:
-
-                print(f"✔ {youtube_channel.pseudo} conservée ({nb_abonnes} abonnés)")
-
+            if conserver_chaine(youtube_channel):
                 resultats.append(youtube_channel)
-
-            else:
-
-                print(f"✘ {youtube_channel.pseudo} ignorée ({nb_abonnes} abonnés)")
 
 
         browser.close()
